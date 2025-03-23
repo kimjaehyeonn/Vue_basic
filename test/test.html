@@ -9,12 +9,12 @@
     <div id="app">
       <h1>📌 게시판 목록</h1>
       <ul>
-        <li v-for="(post,i) in posts" :key="i" @click="selectPost(post)">
-          {{i+1}}. {{post.title}}
+        <li v-for="(post,i) in posts" :key="post.no" @click="selectPost(post)">
+          {{post.no}}. {{post.title}}
           <hr />
         </li>
       </ul>
-      <div v-if="selectPosted">
+      <div v-if="isPostSelected">
         <h2>{{selectedPost.title}}</h2>
         <p>{{selectedPost.content}}</p>
         <button @click="closePost">닫기</button>
@@ -91,23 +91,27 @@
             },
           ]);
 
-          // 선택한 게시글 초기화
-          const selectedPost = ref(post.title, post.content);
+          // post 선택 여부
+          const isPostSelected = ref(false);
+
+          // 어떤 post선택되었는지 여부
+          const selectedPost = ref(null);
 
           // 게시글 선택 함수 (클릭 시 실행)
           const selectPost = (post) => {
-            console.log(post);
-
             selectedPost.value = post;
+            isPostSelected.value = true;
           };
 
           // 게시글 닫기 함수
           const closePost = () => {
-            selectedPost = false;
+            isPostSelected.value = false;
+            // selectedPost.value = null;
           };
 
           return {
             posts,
+            isPostSelected,
             selectedPost,
             selectPost,
             closePost,
