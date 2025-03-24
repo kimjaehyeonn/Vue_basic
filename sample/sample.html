@@ -8,8 +8,23 @@
   <body>
     <div id="app">
       <h1>📌 게시판 목록</h1>
+      <div class="sort-buttons">
+        <button @click="sortPosts('asc')">오름차순</button>
+        <button @click="sortPosts('desc')">내림차순</button>
+      </div>
+      <div class="filter">
+        <input
+          type="text"
+          placeholder="검색어를 입력하세요"
+          v-model="selectQuery"
+        />
+      </div>
       <ul>
-        <li v-for="(post,i) in posts" :key="post.no" @click="selectPost(post)">
+        <li
+          v-for="(post) in filteredPosts"
+          :key="post.no"
+          @click="selectPost(post)"
+        >
           {{post.no}}. {{post.title}}
           <hr />
         </li>
@@ -23,7 +38,7 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-      const { createApp, ref } = Vue;
+      const { createApp, ref, computed } = Vue;
 
       createApp({
         setup() {
@@ -89,6 +104,13 @@
               content:
                 'Git은 버전 관리 시스템이며, GitHub는 이를 활용한 원격 저장소 플랫폼입니다.',
             },
+            ...Array.from({ length: 3000 }, (_, i) => ({
+              no: i + 11,
+              title: `게시글 제목 ${i + 11}`,
+              content: `게시글 ${
+                i + 11
+              }의 내용입니다. 이 글은 자동으로 생성된 내용입니다.`,
+            })),
           ]);
 
           // post 선택 여부
@@ -108,6 +130,36 @@
             isPostSelected.value = false;
             // selectedPost.value = null;
           };
+          // 정렬 기능
+          const sortPosts = (order) => {
+            if (order === 'asc') {
+              posts.value.sort((a, b) => a.no - b.no); //오름차순
+              // sort(콜백함수): 배열의 각 요소를 콜백함수를 기준으로 비교해 정렬.
+              //  결과값이 음수면 -> a가 b보다 앞에 와야함(오름)
+              //  결과값이 양수면 -> a가 b보다 뒤에 와야함(내림)
+              //  결과값이 0이면 -> 순서를 바꾸지 않음.
+            } else {
+              posts.value.sort((a, b) => b.no - a.no); //내림차순
+            }
+          };
+
+          // 검색 기능
+          const selectQuery = ref('');
+          const filteredPosts = computed(() => {
+            console.log('검색기능 호출됨');
+            if (!selectQuery.value) {
+              return posts.value;
+            }
+            const query = selectQuery.value.toLowerCase();
+            // filter:
+            // 배열의 각 요소에 대해 주어진 조건을 만족하는 요소만 모아
+            // 새 배열을 반환함.
+            return posts.value.filter(
+              (post) =>
+                post.title.toLowerCase().includes(query) ||
+                post.content.toLowerCase().includes(query)
+            );
+          });
 
           return {
             posts,
@@ -115,6 +167,9 @@
             selectedPost,
             selectPost,
             closePost,
+            sortPosts,
+            selectQuery,
+            filteredPosts,
           };
         },
       }).mount('#app');
@@ -144,6 +199,17 @@
         border-radius: 5px;
         background: #fff;
       }
+
+      .sort-buttons {
+        display: flex;
+        justify-content: flex-start;
+        gap: 0.5rem;
+      }
+      .filter {
+        display: flex;
+        justify-content: flex-end;
+      }
+
       button {
         margin-top: 10px;
         padding: 5px 10px;
