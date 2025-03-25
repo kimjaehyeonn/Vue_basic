@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      <h2>중첩객체 반복</h2>
+        <div v-for="(p ,i) in people" :key="p.id">
+        <h3>{{i}} - {{p.name}}</h3>
+        <ul></ul>
+          <li v-for="(data,key,i) in p.details" :key="key">{{key}} / {{data}}</li>
+        </ul>
+      </div>
+      <h2>객체를 이용한 동적 스타일 적용</h2>
+      <button @click="changeColors">랜덤한 색상을 동적으로 적용</button>
+      <div v-for="(color, elm) in themeColors"
+      :key="elm"
+       :style="{backgroundColor: color}">
+       색상명 {{color}}
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp } = Vue;
+
+      let vm = createApp({
+        name: 'App',
+        data() {
+          return {
+            // 객체 배열 데이터_중첩된 객체에 접근
+            people: [
+              {
+                id: 1,
+                name: '홍길동',
+                details: {
+                  age: 30,
+                  job: '개발자',
+                  location: '서울',
+                },
+              },
+              {
+                id: 2,
+                name: '김철수',
+                details: {
+                  age: 28,
+                  job: '디자이너',
+                  location: '부산',
+                },
+              },
+            ],
+            // 객체를 이용한 동적 스타일 적용
+            themeColors: {
+              primary: '#3498db',
+              secondary: '#2ecc71',
+              accent: '#e74c3c',
+              background: '#ecf0f1',
+            },
+          };
+        },
+        methods : {
+            changeColors ()
+            { for (let key in this.themeColors){
+                this.themeColors[key] =`#${Math.floor(Math.random()*16777215).toString(16)}`
+            }
+             }
+        }
+      });
+      vm.mount('#app');
+    </script>
+  </body>
+</html>

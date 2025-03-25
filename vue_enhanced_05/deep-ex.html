@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>사용자 목록</h1>
+      <div>
+        정렬기준:
+        <label><input type="radio" />id</label>
+        <label><input type="radio" />name</label>
+        <label><input type="radio" />username</label>
+        <label><input type="radio" />phone</label>
+      </div>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th v-for="user in users" :key="user.id">{{users.key}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="user in users" : key="user.id">{{users.value}}>
+      
+            </tr>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp, ref } = Vue;
+
+      const app = createApp({
+        setup() {
+          const users = ref('');
+          const url = ref('https://jsonplaceholder.typicode.com/users');
+          const theData = (url) => {
+            fetch(url)
+              .then((response) => response.json())
+              .then((actualData) => {
+                users = actualData;
+              })
+              .catch((e) => {
+                console.error('error:', e);
+              });
+          };
+
+          return {
+            users,
+            url,
+            theData,
+          };
+        },
+      });
+
+      const vm = app.mount('#app');
+    </script>
+  </body>
+</html>

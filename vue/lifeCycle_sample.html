@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Vue 생명주기 예제</h1>
+      <p>{{ message }}</p>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+        const { createApp } = Vue;
+
+        let vm = createApp({
+          name: 'App',
+          data() {
+            return {
+              message: '생명주기 훅 예제입니다.',
+              posts: [],
+              users: [],
+              loading: false,
+              windowWidth: 0,
+              timer: null,
+              chartInstance: null,
+              scrollPosition: 0,
+
+            };
+          },
+          // 1. befroeCreat
+          beforeCreate(){
+              // 로깅 도는 애플리케이션 분석 초기화
+              console.log('컴포넌트 초기화 시작');
+
+              // 외부 분석 도구 초기화 예시
+              // analytics.init();
+          },
+          // 2. created
+          created(){
+              //API 데이터 가져오기
+              this.fetchData()
+
+              // 이벤트 리스너 등록(전역 이벤트)
+              window.addEventListener('resize', this.handleResize)
+        },
+      );
+          created(){
+              console.log()
+        },
+      );
+          created(){
+              console.log()
+        },
+      );
+          created(){
+              console.log()
+        },
+      );
+          created(){
+              console.log()
+        },
+      );
+          created(){
+              console.log()
+        },
+      );
+          created(){
+              console.log()
+        },
+      );
+        vm.mount('#app');
+    </script>
+  </body>
+</html>

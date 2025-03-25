@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+        <h1>v-bind directive</h1>
+        <article hidden>
+            <h2>1. 기본속성 바인딩</h2>
+            <img :srcl="imageUrl" alt="message">
+        </article>
+        <article hidden>
+            <h2>2. 링크 주소 바인딩</h2>
+         <a :href="url"> 네이버 이동</a>
+        </article>
+        <article hidden>
+            <h2>3. 클래스와 스타일 바인딩(배열)</h2>
+            <div :class="[activeClass, errClass]">내용 </div>
+            <div :class="[isActive ? activeClass: '', errClass]">content2</div>
+        </article>
+        <article hidden>
+            <h2>4. 인라인 스타일 바인딩</h2>
+            <div style='color: red; font-size: 20px;'>content4</div>
+            <div :style="{color: color1, fontSize:fontSize+'px'}">content4</div>
+        </article>
+        <article hidden>
+            <h2>5. 폼 요소의 속성 바인딩</h2>
+            <input type="inputType" :placeholder="placeHolder" :required="isRequired"/>
+        </article>
+        <article>
+            <h2>6.select binding</h2>
+            <select value='selected'>
+                <option v-for="option in options" :value="option.value" :key="option.id">
+                    {{option.text}}
+                </option>
+            </select>
+        </article>
+    </div2>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp } = Vue;
+
+      let vm = createApp({
+        name: 'App',
+        data() {
+          return {
+            message: 'Hello Vue!',
+            // 속성 바인딩
+            imageUrl : 'https://picsum.photos/100/100',
+            // 링크 바인딩
+            url:'https://www.naver.com/',
+            // 클래스 바인딩
+            isActive: false,
+            activeClass: 'active',
+            errClass: 'text-danger',
+            // inline style
+            color1: 'blue',
+            fontSize: 30,
+            // form
+            inputType: 'text',
+            placeHolder: '입력하세요',
+            isInputDisable: false,
+            isRequired: true,
+            // select
+            selected:'text1',
+            options:  [{id:1, value:'text1',text:'텍스트1'},
+            {id:2, value:'text2',text:'텍스트2'},
+            {id:3, value:'text3',text:'텍스트3'},
+            ] 
+
+          }
+        },
+      });
+      vm.mount('#app');
+    </script>
+  </body>
+</html>

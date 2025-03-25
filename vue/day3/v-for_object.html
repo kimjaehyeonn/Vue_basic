@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>for-object</h1>
+      <ul>
+        <li v-for="(value,key, i) in user">{{i}}-{{key}}- {{value}}</li>
+      </ul>
+      <ul>
+        <li v-for="(list, i) in  arr">{{i}}-{{list}}</li>
+      </ul>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp } = Vue;
+
+      let vm = createApp({
+        name: 'App',
+        data() {
+          return {
+            user: {
+              name: '재현',
+              age: 10,
+              email: 'test@gamil.com',
+            },
+            arr: [1, 2, 3],
+          };
+        },
+      });
+      vm.mount('#app');
+    </script>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+
+      <ul v-for="item in items" :key="item.id" hidden>
+        <li>{{ item.title}}</li>
+      </ul>
+      <hr />
+      <template v-for="item in items" :key="item.id">
+        <div>{{item.title}}</div>
+        <div>{{item.description}}</div>
+        <hr />
+      </template>
+
+      <!-- <form>
+        <template v-for="" :key="">
+          <label :for="name">{{}}</label>
+          <input :type="text" :id="name" :required="" placeholder="이름입력" />
+          <span v-if="">조건에 따라서 헬프 텍스트 출력되는 곳{{}}</span>
+          <hr />
+        </template>
+        <button type="submit">제출</button>
+      </form> -->
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp } = Vue;
+
+      let vm = createApp({
+        name: 'App',
+        data() {
+          return {
+            message: 'Hello Vue!',
+            items: [
+              { id: 1, title: '제목1', description: '내용1' },
+              { id: 2, title: '제목2', description: '내용2' },
+              { id: 3, title: '제목3', description: '내용3' },
+            ],
+            formFields: [
+              {
+                id: 'name',
+                label: '이름',
+                type: 'text',
+                required: true,
+              },
+              {
+                id: 'email',
+                label: '이메일',
+                type: 'email',
+                required: true,
+              },
+              {
+                id: 'password',
+                label: '비밀번호',
+                type: 'password',
+                required: true,
+                helpText: '8자 이상 입력해주세요',
+              },
+            ],
+          };
+        },
+      });
+      vm.mount('#app');
+    </script>
+  </body>
+</html>

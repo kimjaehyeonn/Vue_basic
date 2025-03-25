@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      <label>name</label>
+      <input type="text" v-model.trim="user.name" />
+      <label>email</label>
+      <input type="text" v-model.trim="user.email" />
+      <label>age</label>
+      <input type="number" v-model.number="user.profile.age" />
+      <label></label>
+      <input type="text" v-model.trim="user.profile.occupation" />
+      <div>내용이 변경됨 {{userChangeLog}}</div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp } = Vue;
+
+      let vm = createApp({
+        name: 'App',
+        data() {
+          return {
+            user: {
+              name: 'hong',
+              email: 'test@tt.tt',
+              profile: {
+                age: 5,
+                occupation: 'developer',
+              },
+            },
+            userChangeLog: '수정되기 전',
+          };
+        },
+        watch: {
+          // user: {handler(){}} === user(){}
+          // handler는
+          // deep:true 중첩된 객체 감시
+          // immediate:true 컴포넌트가 처음 로딩될 때도 한번 실행시키고 싶을 때
+          user: {
+            handler(newValue) {
+              this.userChangeLog = `변경감지`;
+              this.userChangeLog += new Date().toLocaleTimeString();
+              this.userChangeLog += JSON.stringify(newValue);
+              //JSON.stringify 는 객체를 문자열로 변환
+            },
+            deep: true,
+            immediate: true,
+          },
+        },
+      });
+      vm.mount('#app');
+    </script>
+  </body>
+</html>

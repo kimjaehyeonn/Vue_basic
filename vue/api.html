@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      <label for="quantity">수량:</label>
+      <input type="number" id="quantity" v-model="quantity" min="1" />
+      <label for="">단가:</label>
+      <input type="number" id="price" v-model="price" min="1000" />
+      <label for="discount">할인율:</label>
+      <input type="number" id="discount" v-model="discount" min="0" />
+      <!-- <div>computed: {{calculatedTotalPrice}}</div> -->
+      <div>최종 가격: {{formttedPrice}}</div>
+      <div>최종 가격: {{totalPrice}}</div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp } = Vue;
+
+      let vm = createApp({
+        name: 'App',
+        data() {
+          return {
+            quantity: 1,
+            price: 1000,
+            discount: 0,
+            totalPrice: 1000,
+          };
+        },
+        // computed에는 계산한 값을 반환하는 getter 함수
+        computed: {
+          formttedPrice() {
+            return `${this.totalPrice.toLocaleString()}원`;
+          },
+        },
+        // watch는 데이터 변화 감지 후 원하는 동작을 하게 해줌.
+        watch: {
+          quantity(newValue) {
+            this.calculatedTotalPrice();
+          },
+          price(newValue) {
+            this.calculatedTotalPrice();
+          },
+          discount(newValue) {
+            this.calculatedTotalPrice();
+          },
+        },
+        // methods는 동작을 수행하는 함수들 > 템플릿에서 직접 호출
+        methods: {
+          calculatedTotalPrice() {
+            let discountAmount =
+              this.price * this.quantity * (this.discount / 100);
+            this.totalPrice = this.price * this.quantity - discountAmount;
+          },
+        },
+      });
+      vm.mount('#app');
+    </script>
+  </body>
+</html>

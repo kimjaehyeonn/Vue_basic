@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>파일명</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>pre</h1>
+      <p v-pre>{{message}}</p>
+      <pre>
+        코드를 작성할 수 있음 
+              어쩌 저쩌구
+      </pre>
+      <span> 코3ㅡ ㅇㄹㅇㄴ </span>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp } = Vue;
+
+      let vm = createApp({
+        name: 'App',
+        data() {
+          return {
+            message: 'sdfdf',
+          };
+        },
+      });
+      vm.mount('#app');
+    </script>
+  </body>
+</html>
