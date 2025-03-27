@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mouseEvent</title>
+  </head>
+  <body>
+    <div id="app">
+      <button :style="style1" @mouseover="style2" @mouseleave="style3">
+        테스트
+      </button>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="text/javascript">
+      const { createApp, ref } = Vue;
+
+      const app = createApp({
+        setup() {
+          const style1 = ref({
+            backgroundColor: 'aqua',
+            color: 'black',
+          });
+          const style2 = () => {
+            style1.value = {
+              backgroundColor: 'purple',
+              color: 'white',
+            };
+          };
+          const style3 = () => {
+            style1.value = {
+              backgroundColor: 'aqua',
+              color: 'black',
+            };
+          };
+          return {
+            style1,
+            style2,
+            style3,
+          };
+        },
+      });
+
+      const vm = app.mount('#app');
+    </script>
+  </body>
+</html>

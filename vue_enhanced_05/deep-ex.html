@@ -30,11 +30,11 @@
         <table>
           <thead>
             <tr>
-              <th v-for="user in users" :key="user.id">{{users.key}}</th>
+              <th v-for="user in users" :key="user.id">{{user.key}}</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in users" : key="user.id">{{users.value}}>
+            <tr v-for="user in users" :key="user.id">{{user.values}}>
       
             </tr>
             </tr>
@@ -54,7 +54,7 @@
             fetch(url)
               .then((response) => response.json())
               .then((actualData) => {
-                users = actualData;
+                actualData.value = users
               })
               .catch((e) => {
                 console.error('error:', e);
