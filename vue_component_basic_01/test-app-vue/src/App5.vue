@@ -3,7 +3,8 @@ import InputName from './components/InputName.vue';
 import { ref } from 'vue';
 const parentName = ref('');
 const nameChangeHandler = (e) => {
-  parentName.value = e.childName;
+  `  parentName.value = e.childName;
+`;
 };
 </script>
 

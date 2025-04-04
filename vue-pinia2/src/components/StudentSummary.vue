@@ -1,0 +1,14 @@
+<script setup>
+import { useStudentStore } from '@/stores/studentStore';
+const studentStore = useStudentStore();
+</script>
+
+<template>
+  <div class="summary">
+    <p>
+      전체학생 수 : <strong>{{ studentStore.studentCount }}</strong>
+    </p>
+  </div>
+</template>
+
+<style scoped></style>
