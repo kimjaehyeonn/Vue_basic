@@ -29,6 +29,12 @@
       "text": "Todo 애플리케이션 완성하기",
       "completed": false,
       "createdAt": "1682899200000"
+    },
+    {
+      "id": "1743912189444",
+      "text": "밥 먹기",
+      "completed": false,
+      "createdAt": "1743912189444"
     }
   ]
 }

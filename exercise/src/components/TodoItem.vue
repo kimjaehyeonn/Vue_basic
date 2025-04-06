@@ -1,18 +1,47 @@
-<script>
+<script setup>
+// App.vue에서 :todo=todo 받은거
 const props = defineProps({
   todo: {
-    type: object,
+    type: Object,
     required: true,
   },
 })
+
+// emit 이벤트('update:todo','delete:todo')를 정의
+const emit = defineEmits(['update:todo', 'delete:todo'])
+
+// todo 항목클릭시 completed 상태를 토글하는 updatedTodo 변수를 만들고 update:todo 이벤트 만들기
+function toggleCompleted() {
+  // todo 객체의 복사본을 만들고 completed 상태를 반전시킴
+  const updatedTodo = {
+    ...props.todo,
+    completed: !props.todo.completed,
+  }
+
+  // 부모 컴포넌트에 업데이트된 todo 객체를 전달
+  emit('update:todo', updatedTodo)
+}
+
+// 삭제 아이콘 클릭시 이벤트 핸들러
+function handleDelete() {
+  // 삭제 확인 대화상자 표시
+  if (!confirm('정말 삭제하시겠습니까?')) {
+    return
+  }
+  // 삭제 아이콘 클릭시 부모 컴포넌트에 delete:todo 이벤트 발생
+  // 부모 컴포넌트에 삭제할 todo의 id 전달
+  emit('delete:todo', props.todo.id)
+}
 </script>
 
 <template>
-  <li :class="{ completed: todo.completed }">
-    <input type="checkbox" v-model="todo.completed" />
+  <li :class="{ completed: todo.completed }" @click="toggleCompleted">
+    <input type="checkbox" :checked="todo.completed" />
     <span>{{ todo.text }}</span>
-    <time>{{ todo.createdAt }}</time>
-    <i class="fa fa-trash"></i>
+    <time>{{
+      new Date(parseInt(todo.createdAt)).toISOString().split('T')[0]
+    }}</time>
+    <i class="fa fa-trash" @click="handleDelete"></i>
   </li>
 </template>
 <style scoped>
