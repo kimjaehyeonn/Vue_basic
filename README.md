@@ -1,1 +1,3 @@
 # Vue
+- router
+- pinia
